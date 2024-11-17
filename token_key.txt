@@ -1,0 +1,6 @@
+Token Key:
+1: KEYWORD: Reserved keywords in the C language (e.g., int, char).
+2: SYMBOL: Symbols used in C code syntax (e.g., (), {}, =).
+3: NUMBER: Numeric constants in the code.
+4: FUNCTION: Known C functions (e.g., strcpy, printf).
+5: IDENTIFIER: Names for variables, functions, etc., not classified elsewhere.
