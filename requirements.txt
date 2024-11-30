@@ -1,6 +1,8 @@
 openai
 beautifulsoup4
 requests
-tensorflow
+tensorflow[and-cuda]
 numpy
 scikit-learn
+matplotlib
+networkx
