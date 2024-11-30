@@ -1,1 +1,1 @@
-{"tokens": [["Start", "If Condition"], ["If Condition", "Branch 1"], ["If Condition", "Branch 2"], ["Branch 1", "End"], ["Branch 2", "End"]], "label": 0}
+{"tokens": [["temp.c", "ExampleIoctlHandler"], ["ExampleIoctlHandler", "DeviceObject"], ["ExampleIoctlHandler", "Irp"], ["ExampleIoctlHandler", "COMPOUND_STMT"], ["COMPOUND_STMT", "IF_STMT"], ["IF_STMT", "UNEXPOSED_EXPR"], ["IF_STMT", "COMPOUND_STMT"]], "label": 0}

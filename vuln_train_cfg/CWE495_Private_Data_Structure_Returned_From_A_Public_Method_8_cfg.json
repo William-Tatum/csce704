@@ -1,1 +1,1 @@
-{"tokens": [["Start", "If Condition"], ["If Condition", "Branch 1"], ["If Condition", "Branch 2"], ["Branch 1", "End"], ["Branch 2", "End"]], "label": 1}
+{"tokens": [["temp.c", "PrivateData"], ["temp.c", "private_data_instance"], ["temp.c", "getPrivateData"], ["PrivateData", "value"], ["private_data_instance", "struct PrivateData"], ["getPrivateData", "struct PrivateData"], ["getPrivateData", "COMPOUND_STMT"], ["COMPOUND_STMT", "RETURN_STMT"], ["RETURN_STMT", "UNARY_OPERATOR"], ["UNARY_OPERATOR", "private_data_instance"]], "label": 1}

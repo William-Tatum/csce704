@@ -1,1 +1,1 @@
-{"tokens": ["UNK"], "label": 1}
+{"tokens": ["TRANSLATION_UNIT", "STRUCT_DECL", "FIELD_DECL", "VAR_DECL", "TYPE_REF", "FUNCTION_DECL", "TYPE_REF", "COMPOUND_STMT", "RETURN_STMT", "UNARY_OPERATOR", "DECL_REF_EXPR"], "label": 1}

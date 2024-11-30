@@ -1,1 +1,1 @@
-{"tokens": [["Start", "If Condition"], ["If Condition", "Branch 1"], ["If Condition", "Branch 2"], ["Branch 1", "End"], ["Branch 2", "End"]], "label": 0}
+{"tokens": [["temp.c", "ExampleIoctlHandler"], ["ExampleIoctlHandler", "DeviceObject"], ["ExampleIoctlHandler", "Irp"], ["ExampleIoctlHandler", "COMPOUND_STMT"], ["COMPOUND_STMT", "DECL_STMT"], ["DECL_STMT", "inputBuffer"], ["DECL_STMT", "outputBuffer"], ["outputBuffer", "MEMBER_REF_EXPR"], ["MEMBER_REF_EXPR", "UNEXPOSED_EXPR"]], "label": 0}

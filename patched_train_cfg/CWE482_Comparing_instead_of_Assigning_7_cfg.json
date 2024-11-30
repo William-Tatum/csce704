@@ -1,1 +1,1 @@
-{"tokens": [["Start", "If Condition"], ["If Condition", "Branch 1"], ["If Condition", "Branch 2"], ["Branch 1", "End"], ["Branch 2", "End"]], "label": 0}
+{"tokens": [["temp.c", "is_valid"], ["temp.c", "user_input"], ["is_valid", "INTEGER_LITERAL"]], "label": 0}
