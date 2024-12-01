@@ -1,0 +1,5 @@
+ROC AUC: 0.56
+PRC AUC: 0.67
+
+ROC Curve saved to: roc_curve.png
+Precision-Recall Curve saved to: prc_curve.png

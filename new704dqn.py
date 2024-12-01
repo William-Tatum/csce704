@@ -78,8 +78,36 @@ env = create_env(X_train_encoded, y_train_full)
 # Step 3: Initialize the DQN model with hyperparameters
 model = DQN("MlpPolicy", env, verbose=1, buffer_size=50000, learning_starts=1000, batch_size=64, gamma=0.99, tau=0.1, train_freq=4, target_update_interval=100)
 
+# Orginal Results before modification
+# As shown in directory this report is saved to new_dqn_metrics_output1
+# Training Accuracy: 91.52%
+# Test Accuracy: 48.78%
+
+# Decrease tau from 0.1 to 0.005 and increase from 100k to 200k time steps got these results:
+# Training Accuracy: 95.85%
+# Test Accuracy: 46.34%
+
+# Moving tau back from 0.005 and keeping 200k time steps
+# This is shown in new_dqn_metrics_output2
+# Training Accuracy: 91.28%
+# Test Accuracy: 52.44%
+
+# Moving from 200k timesteps to 400k timesteps
+# This is shown in new_dqn_metrics_output3
+# Training Accuracy: 95.18%
+# Test Accuracy: 56.10%
+
+# Moving from 400k timesteps to 800k timesteps - Overtrained
+# This is shown in new_dqn_metrics_output4
+# Training Accuracy: 95.61%
+# Test Accuracy: 50%
+
+# Moving from 800k to 500k timesteps - ROC/PRC curves not saved if file folder not mentioned
+# Training Accuracy: 94.09%
+# Test Accuracy: 48.78%
+
 # Step 4: Train the DQN model using the training data
-model.learn(total_timesteps=100000)  # Set appropriate timesteps
+model.learn(total_timesteps=400000)
 
 # Step 5: Save the trained model
 model.save("trained_dqn_model")
@@ -130,4 +158,3 @@ with open(metrics_report_file, 'w') as f:
 
 print(f"Metrics report saved to {metrics_report_file}")
 
-# As shown in GitHub this report is saved to new_dqn_metrics_output1
