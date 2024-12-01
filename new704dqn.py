@@ -66,6 +66,7 @@ def encode_sequences(sequences, vocab, max_length):
 
 # Step 1: Load and preprocess the data
 X_train_full, y_train_full, X_test, y_test = load_data_for_method("basic")  # Change to method as needed
+# ["basic", "ast", "normalize", "syntax", "cfg"]
 vocab = build_vocab(X_train_full)
 max_length = 100  # Set max length for sequences
 X_train_encoded = encode_sequences(X_train_full, vocab, max_length)
@@ -78,7 +79,7 @@ env = create_env(X_train_encoded, y_train_full)
 # Step 3: Initialize the DQN model with hyperparameters
 model = DQN("MlpPolicy", env, verbose=1, buffer_size=50000, learning_starts=1000, batch_size=64, gamma=0.99, tau=0.1, train_freq=4, target_update_interval=100)
 
-# Orginal Results before modification
+# Orginal Results before modification - These are all for the basic data
 # As shown in directory this report is saved to new_dqn_metrics_output1
 # Training Accuracy: 91.52%
 # Test Accuracy: 48.78%
@@ -92,15 +93,19 @@ model = DQN("MlpPolicy", env, verbose=1, buffer_size=50000, learning_starts=1000
 # Training Accuracy: 91.28%
 # Test Accuracy: 52.44%
 
-# Moving from 200k timesteps to 400k timesteps
+# Moving from 200k timesteps to 400k timesteps - BEST so far
 # This is shown in new_dqn_metrics_output3
 # Training Accuracy: 95.18%
 # Test Accuracy: 56.10%
+# ROC AUC: 0.56
+# PRC AUC: 0.67
 
 # Moving from 400k timesteps to 800k timesteps - Overtrained
 # This is shown in new_dqn_metrics_output4
 # Training Accuracy: 95.61%
 # Test Accuracy: 50%
+# ROC AUC: 0.50
+# PRC AUC: 0.62
 
 # Moving from 800k to 500k timesteps - ROC/PRC curves not saved if file folder not mentioned
 # Training Accuracy: 94.09%
