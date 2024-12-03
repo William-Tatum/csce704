@@ -4,7 +4,7 @@ from openai import OpenAI
 from difflib import SequenceMatcher
 
 # Initialize OpenAI client
-client = OpenAI(api_key="sk-svcacct-kPyRL1I2gCx0-6gW5EH5MXT3upS_euCjuQf1uaNp776BDzVWv_ixUja__XSf9Y1T3BlbkFJjfIKXBKnz-CBdOBMbxRMIQ4cpyuRQSYygrhC5AivGPeZ18ATUP3yy4XzCJtbZAA")
+client = OpenAI(api_key="api_key")
 
 def create_directories():
     """Ensure directories for vulnerable and patched examples exist."""
