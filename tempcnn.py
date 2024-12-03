@@ -139,18 +139,15 @@ def build_cnn_model(vocab_size, embedding_dim=256, num_filters=256, kernel_sizes
 for method in tokenization_methods:
     print(f"Processing tokenization method: {method}")
     
-    # Load data
+    # Load and preprocess data
     X_train_full, y_train_full, X_test, y_test = load_data_for_method(method)
-    
     X_train_full = normalize_sequences(X_train_full)
     X_test = normalize_sequences(X_test)
 
-    # Build vocabulary
     vocab = build_vocab(X_train_full)
     vocab_size = len(vocab)
-    max_length = 512  # Set a fixed maximum sequence length
-    
-    # Encode sequences
+    max_length = 512
+
     X_train_full_encoded = encode_sequences(X_train_full, vocab, max_length)
     X_test_encoded = encode_sequences(X_test, vocab, max_length)
 
@@ -162,35 +159,42 @@ for method in tokenization_methods:
     )
     y_test = np.array(y_test)
     
-    # Build model
     cnn_model = build_cnn_model(vocab_size=vocab_size)
     
-    # Callbacks
     early_stopping = EarlyStopping(monitor='val_loss', patience=5, restore_best_weights=True)
     reduce_lr_callback = ReduceLROnPlateau(monitor='val_loss', factor=0.5, patience=3, min_lr=1e-6)
-    
-    # Train model
+
     history = cnn_model.fit(
         X_train, 
         y_train, 
         validation_data=(X_val, y_val), 
-        epochs=2,  # Use more epochs for better results
+        epochs=2, 
         batch_size=32, 
         callbacks=[early_stopping, reduce_lr_callback], 
         verbose=1
     )
 
-    # Evaluate model
     y_pred_prob = cnn_model.predict(X_test_encoded, verbose=1)
-    test_results = cnn_model.evaluate(X_test_encoded, y_test, verbose=1)
     
-    # Compute ROC and PRC
+    # Compute AUC and PRC metrics
     fpr, tpr, _ = roc_curve(y_test, y_pred_prob)
     roc_auc = auc(fpr, tpr)
     precision, recall, _ = precision_recall_curve(y_test, y_pred_prob)
     prc_auc = average_precision_score(y_test, y_pred_prob)
+    
+    # Compute classification metrics using optimal threshold
+    threshold = 0.5  # Default threshold; adjust dynamically if needed
+    y_pred = (y_pred_prob >= threshold).astype(int).flatten()
+    
+    print(f"\nClassification Report for method: {method.upper()}")
+    report = classification_report(y_test, y_pred, target_names=["Non-vulnerable", "Vulnerable"], zero_division=1)
+    print(report)
 
-    # Plot ROC Curve
+    # Add ROC and PRC metrics to the output
+    print(f"ROC AUC: {roc_auc:.4f}")
+    print(f"PRC AUC: {prc_auc:.4f}")
+
+    # Save the metrics plot
     plt.figure(figsize=(12, 5))
     plt.subplot(1, 2, 1)
     plt.plot(fpr, tpr, color='b', lw=2, label=f"AUC = {roc_auc:.4f}")
@@ -200,7 +204,6 @@ for method in tokenization_methods:
     plt.ylabel("True Positive Rate")
     plt.legend()
 
-    # Plot PRC Curve
     plt.subplot(1, 2, 2)
     plt.plot(recall, precision, color='b', lw=2, label=f"AP = {prc_auc:.4f}")
     plt.axhline(y=0.5, color='r', linestyle='--', label="Random Baseline")
@@ -210,4 +213,38 @@ for method in tokenization_methods:
     plt.legend()
 
     plt.tight_layout()
-    plt.show()
+    output_path = f"{method}_metrics.png"
+    plt.savefig(output_path)
+    print(f"Saved metrics plot to {output_path}")
+    plt.close()
+
+'''
+Classification Report for method: BASIC
+                precision    recall  f1-score   support
+
+Non-vulnerable       1.00      0.00      0.00        41
+    Vulnerable       0.50      1.00      0.67        41
+
+      accuracy                           0.50        82
+     macro avg       0.75      0.50      0.33        82
+  weighted avg       0.75      0.50      0.33        82
+
+ROC AUC: 0.3926
+PRC AUC: 0.4350
+Saved metrics plot to basic_metrics.png
+
+Classification Report for method: NORMALIZE
+                precision    recall  f1-score   support
+
+Non-vulnerable       1.00      0.00      0.00        41
+    Vulnerable       0.50      1.00      0.67        41
+
+      accuracy                           0.50        82
+     macro avg       0.75      0.50      0.33        82
+  weighted avg       0.75      0.50      0.33        82
+
+ROC AUC: 0.5497
+PRC AUC: 0.5365
+Saved metrics plot to normalize_metrics.png
+
+'''
